@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class RandomPasswordGenerator {
 
     static Scanner input = new Scanner(System.in);
-    static String name;
-    static String menuChoice;
+    private static String name;
+    private static int menuChoice;
 
     public static void UserName() {
         System.out.print("Please enter your name: ");
@@ -13,7 +13,7 @@ public class RandomPasswordGenerator {
     }
 
     public static void menuOptions(){
-        int menuChoice = 0;
+        menuChoice = 0;
         String menuOption;
 
         System.out.println("1. Generate a number password");
@@ -56,8 +56,8 @@ public class RandomPasswordGenerator {
     }
 
     public static void main(String args[]) {
+        new JavaFrame();
         UserName();
-
         System.out.println("This is a random password generator.");
         System.out.println("You will be given a menu of options to choose from in order to generate your desired password.");
         System.out.println("You will be given 5 options to choose from.");
@@ -73,9 +73,6 @@ public class RandomPasswordGenerator {
         }
 
         menuOptions();
-        
-        int passwordLength;
-        passLength(passwordLength);
         
         
     }
