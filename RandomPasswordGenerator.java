@@ -45,10 +45,13 @@ public class RandomPasswordGenerator {
 
     public static int passLength(int passwordLength) {
         int userpasswordLength;
-        do {
+        while(true) {
         userpasswordLength = input.nextInt();
         System.out.println("\nHow long would you like your password to be (Must be between 1-16) ");
-        } while (userpasswordLength >= 1 || userpasswordLength <= 16);
+        if (userpasswordLength > 1 && userpasswordLength < 16) {
+            break;
+        } 
+    }
         return userpasswordLength;
     }
 
@@ -71,7 +74,7 @@ public class RandomPasswordGenerator {
 
         menuOptions();
         
-        int passwordLength = 0;
+        int passwordLength;
         passLength(passwordLength);
         
         
