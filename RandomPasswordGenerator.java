@@ -1,79 +1,88 @@
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class RandomPasswordGenerator {
 
+    static PassMenu menu = new PassMenu();
     static Scanner input = new Scanner(System.in);
-    private static String name;
-    private static int menuChoice;
+    static String name;
+    static String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    static String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+    static String specialCharacters = "!@#$";
+    static String numbers = "1234567890";
+    static boolean exit;
+    static Random randomPass = new Random();
 
     public static void UserName() {
         System.out.print("Please enter your name: ");
         name = input.next();
         System.out.println("\nHello " + name + "!");
     }
+    public static void displayMenu(){
+            menu.printMenu();
+            generatePass(menuChoice());
+        
+    }
 
-    public static void menuOptions(){
-        menuChoice = 0;
-        String menuOption;
-
-        System.out.println("1. Generate a number password");
-        System.out.println("2. Generate a lowercase password");
-        System.out.println("3. Generate a uppercase password");
-        System.out.println("4. Generate a lower & upper case password");
-        System.out.println("5. Generate a full strength password (Upper, Lower, and Number)");
-
-        switch (menuChoice){
-            case 1: 
-            menuOption = "\nGenerate a number password";
-            break;
-            case 2:
-            menuOption = "Generate a lowercase password";
-            break;
-            case 3:
-            menuOption = "Generate a uppercase password";
-            break;
-            case 4:
-            menuOption = "Generate a lower & upper case password";
-            break;
-            case 5:
-            menuOption = "Generate a full strength password (Upper, Lower, and Number)";
-            break;
-        }
+    public static int menuChoice() {
+        int choice = 0;
         System.out.print("\nWhat password would you like? ");
-        menuOption = input.next();
+        choice = input.nextInt();
+        return choice;
+    }
+    public static char [] numberPass(int length){
+        System.out.print("Your password is: ");
+        char [] numPass = new char[length];
+        numPass[1] = numbers.charAt(randomPass.nextInt(numbers.length()));
+        int i;
+        for(i = 0; i < length ; i++) {
+         numPass[i] = numbers.charAt(randomPass.nextInt(numbers.length()));
+         System.out.print(numPass[i]);
+      }
+      return numPass;
     }
 
-    public static int passLength(int passwordLength) {
-        int userpasswordLength;
-        while(true) {
-        userpasswordLength = input.nextInt();
-        System.out.println("\nHow long would you like your password to be (Must be between 1-16) ");
-        if (userpasswordLength > 1 && userpasswordLength < 16) {
+    public static void generatePass(int choice){
+        switch(choice){
+            case 0:
+            exit = true;
+            System.out.println("Thank you for using my program!");
             break;
-        } 
-    }
-        return userpasswordLength;
-    }
+            case 1: 
+            System.out.print("How long would you like your password? (Choose 1-16) ");
+            int length = input.nextInt();
+            numberPass(length);
+            break;
+            default: 
+            System.out.println("Unknown Error");
 
+    }
+}
     public static void main(String args[]) {
-        new JavaFrame();
         UserName();
         System.out.println("This is a random password generator.");
-        System.out.println("You will be given a menu of options to choose from in order to generate your desired password.");
-        System.out.println("You will be given 5 options to choose from.");
-
+        System.out.println(
+                "You will be given a menu of options to choose from in order to generate your desired password.");
+        System.out.println("You will be given 6 options to choose from.");
 
         System.out.print("\nAre you ready to begin?(Type Y to continue or N to exit) ");
         String begin = input.next();
 
-        if (begin.equals("Y")){
-            System.out.println("\nPlease choose from the menu provided below:");
-        }else if (begin.equals("N")) {
+        switch (begin){
+            case "Y": 
+            displayMenu();
+            break;
+            case "N":
             System.out.println("\nThank you for using my program!");
+            System.out.println("Please re-run the program when you're ready!");
+            break;
+            default:
+            System.out.println("You entered an unknown response.");
         }
 
-        menuOptions();
-        
-        
     }
+
 }
+// Work on lowercase password & work on loop
+
