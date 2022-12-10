@@ -98,13 +98,14 @@ public class RandomPasswordGenerator {
                         System.out.print("\nWould you like to generate another password? (Type Y or N) ");
                         answer = input.next();
                     }
-                    break;
-                case "N":
-                    System.out.println("\nThank you for using my program!");
-                    System.out.println("Please re-run the program when you're ready!");
-                    break;
-                default:
-                    System.out.println("You entered an unknown response.");
+                    switch (answer){
+                        case "N":
+                        System.out.println("\nThank you for using my program!");
+                        break;
+                        default:
+                        System.out.println("You entered an unknown response.");
+                        System.out.println("Please re-run the program.");
+                    }   
             }
             
            
