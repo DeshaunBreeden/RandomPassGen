@@ -7,6 +7,7 @@ public class RandomPasswordGenerator {
 
     static PassMenu menu = new PassMenu();
     static Scanner input = new Scanner(System.in);
+    static NClose nClose = new NClose();
     static String name;
     static String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -32,8 +33,8 @@ public class RandomPasswordGenerator {
         int choice;
         System.out.print("\nWhich password would you like? ");
         while (!input.hasNextInt()) {
-            System.out.printf("Invalid input. Please try again (Choose 0-5): ");
-            input.nextLine();
+            System.out.printf("Invalid input. Please try again(Choose 0-5): ");
+            input.next();
         }
         choice = input.nextInt();
         return choice;
@@ -63,58 +64,56 @@ public class RandomPasswordGenerator {
         return lowerCasePass;
     }
 
-    public static void testLength(int length) {
+    public static int testLength(int length) {
         if (length <= 0 || length >= 17) {
+
             System.out.println("\nUnknown Error");
             System.out.print("Would you like to try again? (Choose Y or N) ");
             String answer = input.next();
-            if (answer.equals("Y")) {
-                displayMenu();
-            }
-            System.out.print("\nWould you like to generate another password? (Type Y or N) ");
-            answer = input.next();
-
-            if (answer.equals("N")) {
-                System.out.println("\nThank you for using my program!");
-                System.exit(0);
-            }
-            while (answer.equals("Y")) {
-                displayMenu();
-                System.out.print("\nWould you like to generate another password? (Type Y or N) ");
-                answer = input.next();
-                switch (answer) {
-                    case "Y":
-                        displayMenu();
-                        break;
-                    case "N":
-                        System.out.println("\nThank you for using my program!");
-                        System.exit(0);
-                        break;
-                    default:
-                        System.out.println("You entered an unknown response.");
+            switch (answer){
+                case "Y":
+                System.out.print("Please enter a length(Choose 1-16): ");
+                 while (!input.hasNextInt()) {
+                System.out.printf("Invalid input. Please try again(Choose 1-16): ");
+                input.next();
+                 }
+                RandomPasswordGenerator.length = input.nextInt();
+                break;
+                case "N":
+                nClose.nClose();
+                break;
+                default:
+                 System.out.println("You entered an unknown response.");
                         System.out.println("Please re-run the program.");
                         System.exit(0);
-                }
+        } 
+    }
+    return length;
+    }
 
-            }
+    public static int userLength() {
+        System.out.print("How long would you like your password? (Choose 1-16) ");
+        while (!input.hasNextInt()) {
+            System.out.printf("Invalid input. Please try again(Choose 1-16): ");
+            input.next();
         }
+        length = input.nextInt();
+        return length;
     }
 
     public static void generatePass(int choice) {
         switch (choice) {
             case 0:
                 exit = true;
-                System.out.println("Thank you for using my program!");
+                nClose.nClose();
                 break;
             case 1:
-                System.out.print("How long would you like your password? (Choose 1-16) ");
-                length = input.nextInt();
+                userLength();
                 testLength(length);
                 numberPass(length);
                 break;
             case 2:
-                System.out.print("How long would you like your password? (Choose 1-16) ");
-                length = input.nextInt();
+                userLength();
                 testLength(length);
                 lowerCasePass(length);
                 break;
@@ -131,8 +130,7 @@ public class RandomPasswordGenerator {
                     case "Y":
                         displayMenu();
                     case "N":
-                        System.out.println("\nThank you for using my program!");
-                        System.exit(0);
+                        nClose.nClose();
                         break;
                     default:
                         System.out.println("You entered an unknown response.");
@@ -163,8 +161,7 @@ public class RandomPasswordGenerator {
                 }
                 switch (answer) {
                     case "N":
-                        System.out.println("\nThank you for using my program!");
-                        System.exit(0);
+                        nClose.nClose();
                         break;
                     default:
                         System.out.println("You entered an unknown response.");
@@ -178,4 +175,5 @@ public class RandomPasswordGenerator {
 
 // work on uppercase, try making method called try again to reduce
 // repetetiveness
-//fix menuchoice loop
+// fix menuchoice loop
+// make method or additional file for default and N program closing
