@@ -168,6 +168,14 @@ public class RandomPasswordGenerator {
                         System.out.println("Please re-run the program.");
                         System.exit(0);
                 }
+            case "N":
+                nClose.nClose();
+                break;
+            default:
+                        System.out.println("You entered an unknown response.");
+                        System.out.println("Please re-run the program.");
+                        System.exit(0);
+
         }
 
     }
@@ -175,5 +183,4 @@ public class RandomPasswordGenerator {
 
 // work on uppercase, try making method called try again to reduce
 // repetetiveness
-// fix menuchoice loop
-// make method or additional file for default and N program closing
+// make method or additional file for default closing
