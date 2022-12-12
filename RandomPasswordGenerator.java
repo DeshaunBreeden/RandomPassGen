@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class RandomPasswordGenerator {
-
     static PassMenu menu = new PassMenu();
     static Scanner input = new Scanner(System.in);
     static NClose nClose = new NClose();
@@ -13,6 +12,8 @@ public class RandomPasswordGenerator {
     static String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
     static String specialCharacters = "!@#$";
     static String numbers = "1234567890";
+    static String upperLowerLetters = capitalCaseLetters + lowerCaseLetters;
+    static String fullPass = capitalCaseLetters + lowerCaseLetters + specialCharacters + numbers;
     static boolean exit = false;
     static Random randomPass = new Random();
     static int length;
@@ -62,6 +63,28 @@ public class RandomPasswordGenerator {
             System.out.print(lowerCasePass.get(i));
         }
         return lowerCasePass;
+    }
+    public static ArrayList<Character> upperCasePass(int length) {
+        System.out.print("Your password is: ");
+        ArrayList<Character> upperCasePass = new ArrayList<Character>();
+        Arrays.asList(capitalCaseLetters.charAt(randomPass.nextInt(capitalCaseLetters.length())));
+        int i;
+        for (i = 0; i < length; i++) {
+            upperCasePass.add(capitalCaseLetters.charAt(randomPass.nextInt(capitalCaseLetters.length())));
+            System.out.print(upperCasePass.get(i));
+        }
+        return upperCasePass;
+    }
+    public static ArrayList<Character> upperLowerCasePass(int length){
+        System.out.print("Your password is: ");
+        ArrayList<Character> upperLowerCasePass = new ArrayList<Character>();
+        Arrays.asList(upperLowerLetters.charAt(randomPass.nextInt(upperLowerLetters.length())));
+        int i;
+        for (i = 0; i < length; i++) {
+            upperLowerCasePass.add(upperLowerLetters.charAt(randomPass.nextInt(upperLowerLetters.length())));
+            System.out.print(upperLowerCasePass.get(i));
+        }
+        return upperLowerCasePass;
     }
 
     public static int testLength(int length) {
@@ -116,6 +139,16 @@ public class RandomPasswordGenerator {
                 userLength();
                 testLength(length);
                 lowerCasePass(length);
+                break;
+            case 3:
+                userLength();
+                testLength(length);
+                upperCasePass(length);
+                break;
+            case 4:
+                userLength();
+                testLength(length);
+                upperLowerCasePass(length);
                 break;
             default:
                 System.out.println("Unknown Error");
