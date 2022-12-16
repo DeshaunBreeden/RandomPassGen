@@ -6,6 +6,7 @@ public class PassMenu {
         System.out.println("3. Generate an uppercase password");
         System.out.println("4. Generate a lower & upper case password");
         System.out.println("5. Generate a full strength password (Upper, Lower, and Number)");
+        System.out.println("6. Generate password with keyword");
         System.out.println("0. Exit");
     }
 }

@@ -7,6 +7,7 @@ public class RandomPasswordGenerator {
     static PassMenu menu = new PassMenu();
     static Scanner input = new Scanner(System.in);
     static NClose nClose = new NClose();
+    static defaultClose defaultClose = new defaultClose();
     static String name;
     static String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     static String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -64,6 +65,7 @@ public class RandomPasswordGenerator {
         }
         return lowerCasePass;
     }
+
     public static ArrayList<Character> upperCasePass(int length) {
         System.out.print("Your password is: ");
         ArrayList<Character> upperCasePass = new ArrayList<Character>();
@@ -75,7 +77,8 @@ public class RandomPasswordGenerator {
         }
         return upperCasePass;
     }
-    public static ArrayList<Character> upperLowerCasePass(int length){
+
+    public static ArrayList<Character> upperLowerCasePass(int length) {
         System.out.print("Your password is: ");
         ArrayList<Character> upperLowerCasePass = new ArrayList<Character>();
         Arrays.asList(upperLowerLetters.charAt(randomPass.nextInt(upperLowerLetters.length())));
@@ -86,38 +89,51 @@ public class RandomPasswordGenerator {
         }
         return upperLowerCasePass;
     }
+    public static ArrayList<Character> fullPass(int length) {
+        System.out.print("Your password is: ");
+        ArrayList<Character> fullstrengthpass = new ArrayList<Character>();
+        Arrays.asList(fullPass.charAt(randomPass.nextInt(fullPass.length())));
+        int i;
+        for (i = 0; i < length; i++) {
+            fullstrengthpass.add(fullPass.charAt(randomPass.nextInt(fullPass.length())));
+            System.out.print(fullstrengthpass.get(i));
+        }
+        return fullstrengthpass;
+    }
 
     public static int testLength(int length) {
         if (length <= 0 || length >= 17) {
 
-            System.out.println("\nUnknown Error");
+            System.out.println("\nInvalid length!");
             System.out.print("Would you like to try again? (Choose Y or N) ");
             String answer = input.next();
-            switch (answer){
+            while (!answer.equals("Y") && !answer.equals("N")) {
+                    System.out.printf("Invalid input. Please try again(Choose Y or N): ");
+                    answer = input.next();
+                }
+            switch (answer) {
                 case "Y":
-                System.out.print("Please enter a length(Choose 1-16): ");
-                 while (!input.hasNextInt()) {
-                System.out.printf("Invalid input. Please try again(Choose 1-16): ");
-                input.next();
-                 }
-                RandomPasswordGenerator.length = input.nextInt();
-                break;
+                    System.out.print("Please enter a length(Choose 1-16): ");
+                    while (!input.hasNextInt()) {
+                        System.out.print("Invalid input. Please try again(Choose 1-16): ");
+                        input.next();
+                    }
+                    RandomPasswordGenerator.length = input.nextInt();
+                    break;
                 case "N":
-                nClose.nClose();
-                break;
+                    nClose.nClose();
+                    break;
                 default:
-                 System.out.println("You entered an unknown response.");
-                        System.out.println("Please re-run the program.");
-                        System.exit(0);
-        } 
-    }
-    return length;
+                    defaultClose.dClose();
+            }
+        }
+        return length;
     }
 
     public static int userLength() {
         System.out.print("How long would you like your password? (Choose 1-16) ");
         while (!input.hasNextInt()) {
-            System.out.printf("Invalid input. Please try again(Choose 1-16): ");
+            System.out.print("Invalid input. Please try again(Choose 1-16): ");
             input.next();
         }
         length = input.nextInt();
@@ -150,9 +166,14 @@ public class RandomPasswordGenerator {
                 testLength(length);
                 upperLowerCasePass(length);
                 break;
+            case 5:
+                userLength();
+                testLength(length);
+                fullPass(length);
+                break;
             default:
-                System.out.println("Unknown Error");
-                System.out.println("\n Would you like to try again? (Choose Y or N) ");
+                System.out.println("\nUnknown Error");
+                System.out.print("Would you like to try again? (Choose Y or N) ");
                 String answer = input.next();
                 while (answer.equals("Y")) {
                     displayMenu();
@@ -166,9 +187,7 @@ public class RandomPasswordGenerator {
                         nClose.nClose();
                         break;
                     default:
-                        System.out.println("You entered an unknown response.");
-                        System.out.println("Please re-run the program.");
-                        System.exit(0);
+                    defaultClose.dClose();
                 }
 
         }
@@ -182,6 +201,10 @@ public class RandomPasswordGenerator {
 
         System.out.print("\nAre you ready to begin?(Type Y to continue or N to exit) ");
         String begin = input.next();
+        while (!begin.equals("Y") && !begin.equals("N")) {
+            System.out.printf("Invalid input. Please try again(Choose Y or N): ");
+            begin = input.next();
+        }
         switch (begin) {
             case "Y":
                 displayMenu();
@@ -197,23 +220,16 @@ public class RandomPasswordGenerator {
                         nClose.nClose();
                         break;
                     default:
-                        System.out.println("You entered an unknown response.");
-                        System.out.println("Please re-run the program.");
-                        System.exit(0);
+                        defaultClose.dClose();
                 }
             case "N":
                 nClose.nClose();
                 break;
             default:
-                        System.out.println("You entered an unknown response.");
-                        System.out.println("Please re-run the program.");
-                        System.exit(0);
+                defaultClose.dClose();
 
         }
 
     }
 }
-
-// work on uppercase, try making method called try again to reduce
-// repetetiveness
-// make method or additional file for default closing
+//
