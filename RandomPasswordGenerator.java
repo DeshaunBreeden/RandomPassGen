@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.sound.sampled.SourceDataLine;
+
 public class RandomPasswordGenerator {
     static PassMenu menu = new PassMenu();
     static Scanner input = new Scanner(System.in);
@@ -89,6 +91,7 @@ public class RandomPasswordGenerator {
         }
         return upperLowerCasePass;
     }
+
     public static ArrayList<Character> fullPass(int length) {
         System.out.print("Your password is: ");
         ArrayList<Character> fullstrengthpass = new ArrayList<Character>();
@@ -101,6 +104,20 @@ public class RandomPasswordGenerator {
         return fullstrengthpass;
     }
 
+    public static void keyPass(int length) {
+        System.out.print("Enter your keyword: ");
+        String keyword = input.next();
+        System.out.print("Your password is: ");
+        ArrayList<Character> keyPassWord = new ArrayList<Character>();
+        Arrays.asList(fullPass.charAt(randomPass.nextInt(fullPass.length())));
+        int i;
+        System.out.print(keyword);
+        for (i = 0; i < length; i++) {
+            keyPassWord.add(fullPass.charAt(randomPass.nextInt(fullPass.length())));
+            System.out.print(keyPassWord.get(i));
+        }
+    }
+
     public static int testLength(int length) {
         if (length <= 0 || length >= 17) {
 
@@ -108,9 +125,9 @@ public class RandomPasswordGenerator {
             System.out.print("Would you like to try again? (Choose Y or N) ");
             String answer = input.next();
             while (!answer.equals("Y") && !answer.equals("N")) {
-                    System.out.printf("Invalid input. Please try again(Choose Y or N): ");
-                    answer = input.next();
-                }
+                System.out.printf("Invalid input. Please try again(Choose Y or N): ");
+                answer = input.next();
+            }
             switch (answer) {
                 case "Y":
                     System.out.print("Please enter a length(Choose 1-16): ");
@@ -138,6 +155,41 @@ public class RandomPasswordGenerator {
         }
         length = input.nextInt();
         return length;
+    }
+
+    public static int keyPassLength() {
+        System.out.print("How many characters after your keyword? (Choose 1-16) ");
+        while (!input.hasNextInt()) {
+            System.out.print("Invalid input. Please try again(Choose 1-16): ");
+            input.next();
+        }
+        length = input.nextInt();
+        return length;
+    }
+
+    public static void charAdd(ArrayList<Character> userpass) {
+        System.out.print("\nDo you need a special character(!@#$) for your password? (Choose Y or N): ");
+        String answer = input.next();
+        while (!answer.equals("Y") && !answer.equals("N")) {
+            System.out.printf("Invalid input. Please try again(Choose Y or N): ");
+            answer = input.next();
+        }
+        switch (answer) {
+            case "Y":
+                System.out.print("Here is your updated password: ");
+                for (int i = 0; i < userpass.size(); i++) {
+                    System.out.print(userpass.get(i));
+                }
+                char special = specialCharacters.charAt(randomPass.nextInt(specialCharacters.length()));
+                System.out.println(special);
+                break;
+            case "N":
+                System.out.println("\nGreat! Enjoy your password.");
+                System.exit(0);
+                break;
+            default:
+                defaultClose.dClose();
+        }
     }
 
     public static void generatePass(int choice) {
@@ -169,7 +221,13 @@ public class RandomPasswordGenerator {
             case 5:
                 userLength();
                 testLength(length);
-                fullPass(length);
+                ArrayList<Character> userpass = fullPass(length);
+                charAdd(userpass);
+                break;
+            case 6:
+                keyPassLength();
+                testLength(length);
+                keyPass(length);
                 break;
             default:
                 System.out.println("\nUnknown Error");
@@ -187,7 +245,7 @@ public class RandomPasswordGenerator {
                         nClose.nClose();
                         break;
                     default:
-                    defaultClose.dClose();
+                        defaultClose.dClose();
                 }
 
         }
