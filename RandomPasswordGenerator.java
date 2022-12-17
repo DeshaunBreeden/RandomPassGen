@@ -3,8 +3,6 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.sound.sampled.SourceDataLine;
-
 public class RandomPasswordGenerator {
     static PassMenu menu = new PassMenu();
     static Scanner input = new Scanner(System.in);
@@ -20,6 +18,7 @@ public class RandomPasswordGenerator {
     static boolean exit = false;
     static Random randomPass = new Random();
     static int length;
+    static String keyword;
 
     public static void UserName() {
         System.out.print("Please enter your name: ");
@@ -30,7 +29,6 @@ public class RandomPasswordGenerator {
     public static void displayMenu() {
         menu.printMenu();
         generatePass(menuChoice());
-
     }
 
     public static int menuChoice() {
@@ -104,9 +102,9 @@ public class RandomPasswordGenerator {
         return fullstrengthpass;
     }
 
-    public static void keyPass(int length) {
+    public static ArrayList<Character> keyPass(int length) {
         System.out.print("Enter your keyword: ");
-        String keyword = input.next();
+        keyword = input.next();
         System.out.print("Your password is: ");
         ArrayList<Character> keyPassWord = new ArrayList<Character>();
         Arrays.asList(fullPass.charAt(randomPass.nextInt(fullPass.length())));
@@ -116,6 +114,7 @@ public class RandomPasswordGenerator {
             keyPassWord.add(fullPass.charAt(randomPass.nextInt(fullPass.length())));
             System.out.print(keyPassWord.get(i));
         }
+        return keyPassWord;
     }
 
     public static int testLength(int length) {
@@ -171,12 +170,15 @@ public class RandomPasswordGenerator {
         System.out.print("\nDo you need a special character(!@#$) for your password? (Choose Y or N): ");
         String answer = input.next();
         while (!answer.equals("Y") && !answer.equals("N")) {
-            System.out.printf("Invalid input. Please try again(Choose Y or N): ");
+            System.out.print("Invalid input. Please try again(Choose Y or N): ");
             answer = input.next();
         }
         switch (answer) {
             case "Y":
                 System.out.print("Here is your updated password: ");
+                if (keyword != null){
+                System.out.print(keyword);
+                }
                 for (int i = 0; i < userpass.size(); i++) {
                     System.out.print(userpass.get(i));
                 }
@@ -227,7 +229,8 @@ public class RandomPasswordGenerator {
             case 6:
                 keyPassLength();
                 testLength(length);
-                keyPass(length);
+                ArrayList<Character> userPass = keyPass(length);
+                charAdd(userPass);
                 break;
             default:
                 System.out.println("\nUnknown Error");
@@ -290,4 +293,4 @@ public class RandomPasswordGenerator {
 
     }
 }
-//
+// fix section "Here is your updated password:" for option 6. Option doesn't enter keyword after adding the special character.
