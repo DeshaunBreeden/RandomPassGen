@@ -293,4 +293,3 @@ public class RandomPasswordGenerator {
 
     }
 }
-// fix section "Here is your updated password:" for option 6. Option doesn't enter keyword after adding the special character.
